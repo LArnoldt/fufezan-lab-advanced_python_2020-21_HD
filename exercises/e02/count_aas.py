@@ -54,20 +54,12 @@ def output_amino_acid_prevalences_and_save_to_csv(amino_acids_dict):
         amino_acids_dict: dictionary (Counter type) of amino acids with prevalences
     """
 
-<<<<<<< HEAD
     with open('./exercises/e02/mouse_aa_distribution.csv', 'w', newline='') as csvfile:
         aa_distribution_csv = csv.writer(csvfile, delimiter=' ')
         aa_distribution_csv.writerow(["aa, count"])
         for amino_acid in amino_acids_dict.keys():
             print(str(amino_acid) + ": " + str(amino_acids_dict[amino_acid]))
             aa_distribution_csv.writerow([str(amino_acid) + ", " + str(amino_acids_dict[amino_acid])])
-=======
-    with open('./exercises/e02/aa_distribution.csv', 'w', newline='') as csvfile:
-        human_aa_distribution_csv = csv.writer(csvfile, delimiter=' ', quoting=csv.QUOTE_MINIMAL)
-        for amino_acid in amino_acids_dict.keys():
-            print(str(amino_acid) + ": " + str(amino_acids_dict[amino_acid]))
-            human_aa_distribution_csv.writerow([str(amino_acid) + ", " + str(amino_acids_dict[amino_acid])])
->>>>>>> Exercise 2 finalized.
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -62,8 +62,6 @@ def plot_amino_acid_prevalences(amino_acids_dict):
     plt.ylabel("Prevalences")
     plt.xlabel("Amino Acids")
     plt.savefig("./exercises/e02/prevalence_distribution_amino_acids.pdf")
-    plt.xlabel("Amino Acids")
-    plt.savefig("./exercises/e02/prevalence_distribution_amino_acids.png")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
