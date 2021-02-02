@@ -58,10 +58,15 @@ def plot_amino_acid_prevalences(amino_acids_dict):
     amino_acids = list(amino_acids_dict.keys())
 
     plt.bar(amino_acids, prevalences_amino_acids, color="green")
+<<<<<<< HEAD
     plt.title("Prevalences of Amino Acids for Uniprot sequences of a species.")
     plt.ylabel("Prevalences")
     plt.xlabel("Amino Acids")
     plt.savefig("./exercises/e02/prevalence_distribution_amino_acids.pdf")
+=======
+    plt.ylabel("Prevalences (x 10^6)")
+    plt.savefig("./exercises/e02/prevalence_distribution_amino_acids.png")
+>>>>>>> Exercise 2 finalized.
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
