@@ -108,7 +108,7 @@ def plot_hydropathy_list(hydropathy_sequence_list, acc_uniprot, length_sliding_w
     sequence_position_hydropathy_tuple = list(zip(sequence_positions, hydropathy_sequence_list))
     sequence_position_hydropathy_df = pd.DataFrame(sequence_position_hydropathy_tuple, columns=['Sequence Position', 'Hydropathy'])
 
-    hydropathy_plot = px.bar(sequence_position_hydropathy_df, x = 'Sequence Position', y = 'Hydropathy', title="Hydropathy List for Uniprot Acc: " + acc_uniprot + " with a sliding window of " + length_sliding_window)
+    hydropathy_plot = px.bar(sequence_position_hydropathy_df, x = 'Sequence Position', y = 'Hydropathy', title="Hydropathy List for Uniprot Acc: " + acc_uniprot + " with a sliding window of " + str(length_sliding_window))
     hydropathy_plot.show()
 
 if __name__ == "__main__":
