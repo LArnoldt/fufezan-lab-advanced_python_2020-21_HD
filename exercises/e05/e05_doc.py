@@ -30,18 +30,21 @@ class Protein:
 
         url_entry_uniprot = "https://www.uniprot.org/uniprot/" + self.acc_uniprot + ".fasta"
         request_entry_uniprot = requests.get(url_entry_uniprot, allow_redirects=True)
-        open("./exercises/e04/" + self.acc_uniprot + ".fasta", 'wb').write(request_entry_uniprot.content)
+        open("C:/Users/lucas/PycharmProjects/fufezan-lab-advanced_python_2020-21_HD/exercises/e05/" + self.acc_uniprot + ".fasta", 'wb').write(request_entry_uniprot.content)
 
         fasta = ""
 
-        with open("./exercises/e04/" + self.acc_uniprot + ".fasta", "r") as fasta_file:
+        with open("C:/Users/lucas/PycharmProjects/fufezan-lab-advanced_python_2020-21_HD/exercises/e05/" + self.acc_uniprot + ".fasta", "r") as fasta_file:
             fasta_file_lines = fasta_file.readlines()
             for row in fasta_file_lines:
                 if row[0] != ">":
                     row = row[:-1]
                     fasta += row
 
-        return fasta
+        if fasta.isalpha():
+            return fasta
+        else:
+            return ""
 
     def import_amino_acid_properties_and_create_hydropathy_dict(self):
         '''Function imports a table with amino acid properties and extracts the hydropathy scores for certain bases.
