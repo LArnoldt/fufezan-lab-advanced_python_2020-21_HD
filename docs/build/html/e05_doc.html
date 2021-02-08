@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProteinClass module &#8212; ProteinClass 2021 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to ProteinClass’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-exercises.e05.e05_doc">
+<span id="proteinclass-module"></span><span id="e05-doc-rst"></span><h1>ProteinClass module<a class="headerlink" href="#module-exercises.e05.e05_doc" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="exercises.e05.e05_doc.Protein">
+<em class="property">class </em><code class="sig-prename descclassname">exercises.e05.e05_doc.</code><code class="sig-name descname">Protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">acc_uniprot</span></em>, <em class="sig-param"><span class="n">length_sliding_windows</span></em>, <em class="sig-param"><span class="n">directory_amino_acid_properties</span></em>, <em class="sig-param"><span class="n">directory_xml_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#exercises.e05.e05_doc.Protein" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="exercises.e05.e05_doc.Protein.create_hydropathy_value_list_for_fasta">
+<code class="sig-name descname">create_hydropathy_value_list_for_fasta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fasta</span></em>, <em class="sig-param"><span class="n">hydropathy_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#exercises.e05.e05_doc.Protein.create_hydropathy_value_list_for_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function generates a list of hydropathy scores for the sequence making use of a sliding window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fasta</strong> – fasta sequence to be converted into hydropathy scores</p></li>
+<li><p><strong>hydropathy_dict</strong> – dict of hydropathy scores for certain bases</p></li>
+<li><p><strong>length_sliding_window</strong> – length of the sliding window used in the determination of the hydropathy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>hydropathy values for sequence positions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>hydropathy_sequence_list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="exercises.e05.e05_doc.Protein.extract_xml_and_extract_topological_domains">
+<code class="sig-name descname">extract_xml_and_extract_topological_domains</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#exercises.e05.e05_doc.Protein.extract_xml_and_extract_topological_domains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function imports the XML file of a protein and extracts all topological domains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory_xml_file</strong> – directory of the XML file for a corresponsing protein</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list with topological domains and transmembrane region sites of the corresponding protein</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>domain_sites_list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="exercises.e05.e05_doc.Protein.get_sequence">
+<code class="sig-name descname">get_sequence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#exercises.e05.e05_doc.Protein.get_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function retrieves FASTA from Uniprot, saves it as FASTA file and extracts the sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>acc_uniprot</strong> – uniprot accession number</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>string with amino acids</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>fasta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="exercises.e05.e05_doc.Protein.import_amino_acid_properties_and_create_hydropathy_dict">
+<code class="sig-name descname">import_amino_acid_properties_and_create_hydropathy_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#exercises.e05.e05_doc.Protein.import_amino_acid_properties_and_create_hydropathy_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function imports a table with amino acid properties and extracts the hydropathy scores for certain bases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory_amino_acid_properties</strong> – directory of table with amino acid properties, e.g. hydropathy</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict of hydropathy scores for certain bases</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>hydropathy_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="exercises.e05.e05_doc.Protein.plot_hydropathy_list_and_transmembrane_region">
+<code class="sig-name descname">plot_hydropathy_list_and_transmembrane_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hydropathy_sequence_list</span></em>, <em class="sig-param"><span class="n">domain_sites_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#exercises.e05.e05_doc.Protein.plot_hydropathy_list_and_transmembrane_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function generates a pandas table with the sequence positions, the hydropathy_values and region sites and plots them in a bar chart.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hydropathy_sequence_list</strong> – hydropathy values for sequence positions</p></li>
+<li><p><strong>acc_uniprot</strong> – uniprot accession number</p></li>
+<li><p><strong>length_sliding_window</strong> – length of the sliding window used in the determination of the hydropathy</p></li>
+<li><p><strong>domain_sites_list</strong> – list with topological domains and transmembrane region sites of the corresponding protein</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ProteinClass</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ProteinClass module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ProteinClass’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Lucas Arnoldt.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/e05_doc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

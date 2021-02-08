@@ -28,23 +28,20 @@ class Protein:
             fasta: string with amino acids
         '''
 
+        url_entry_uniprot = "https://www.uniprot.org/uniprot/" + self.acc_uniprot + ".fasta"
+        request_entry_uniprot = requests.get(url_entry_uniprot, allow_redirects=True)
+        open("./exercises/e04/" + self.acc_uniprot + ".fasta", 'wb').write(request_entry_uniprot.content)
+
         fasta = ""
 
-        url_entry_uniprot = "https://www.uniprot.org/uniprot/" + acc_uniprot + ".fasta"
-        request_entry_uniprot = requests.get(url_entry_uniprot, allow_redirects=True)
-        open("./exercises/e04/" + acc_uniprot + ".fasta", 'wb').write(request_entry_uniprot.content)
-
-        with open("./exercises/e04/" + acc_uniprot + ".fasta", "r") as fasta_file:
+        with open("./exercises/e04/" + self.acc_uniprot + ".fasta", "r") as fasta_file:
             fasta_file_lines = fasta_file.readlines()
             for row in fasta_file_lines:
                 if row[0] != ">":
                     row = row[:-1]
                     fasta += row
 
-        if fasta.isalpha():
-            return fasta
-        else:
-            return ""
+        return fasta
 
     def import_amino_acid_properties_and_create_hydropathy_dict(self):
         '''Function imports a table with amino acid properties and extracts the hydropathy scores for certain bases.
@@ -57,11 +54,15 @@ class Protein:
 
         hydropathy_dict = {}
 
-        with open(self.directory_amino_acid_properties, newline='') as csvfile:
-            amino_acid_properties = csv.reader(csvfile, delimiter=',', quotechar='|')
-            for pos, row in enumerate(amino_acid_properties):
-                if pos > 0:
-                    hydropathy_dict[row[2]] = float(row[11])
+        try:
+            with open(self.directory_amino_acid_properties, newline='') as csvfile:
+                amino_acid_properties = csv.reader(csvfile, delimiter=',', quotechar='|')
+                for pos, row in enumerate(amino_acid_properties):
+                    if pos > 0:
+                        hydropathy_dict[row[2]] = float(row[11])
+
+        except:
+            pass
 
         return hydropathy_dict
 
@@ -80,13 +81,16 @@ class Protein:
 
         window = deque([], maxlen=self.length_sliding_windows)
 
-        for pos, aa in enumerate(fasta):
-            window.append(aa)
-            average_hydropathy_score = 0
-            for base in list(window):
-                average_hydropathy_score += hydropathy_dict[base]
-            average_hydropathy_score = average_hydropathy_score / len(window)
-            hydropathy_sequence_list.append(average_hydropathy_score)
+        try:
+            for pos, aa in enumerate(fasta):
+                window.append(aa)
+                average_hydropathy_score = 0
+                for base in list(window):
+                    average_hydropathy_score += hydropathy_dict[base]
+                average_hydropathy_score = average_hydropathy_score / len(window)
+                hydropathy_sequence_list.append(average_hydropathy_score)
+        except:
+            pass
 
         return hydropathy_sequence_list
 
@@ -149,22 +153,27 @@ class Protein:
             domain_sites_list: list with topological domains and transmembrane region sites of the corresponding protein
         '''
 
-        schema = xmlschema.XMLSchema('https://www.uniprot.org/docs/uniprot.xsd')
-        entry_dict = schema.to_dict(self.directory_xml_file)
-        entry_dict.keys()
-        content = entry_dict['entry'][0]
-
         domain_sites_list = []
-        end_old = 0
+        schema = xmlschema.XMLSchema('https://www.uniprot.org/docs/uniprot.xsd')
 
-        for element in content['feature']:
-            if element['@type'] == 'topological domain':
-                begin, end = element['location']['begin']['@position'], element['location']['end']['@position']
-                for amino_acid_residue_position in range(end_old, begin - 1):
-                    domain_sites_list.append("transmembrane_region_sites")
-                for amino_acid_residue_position in range(begin - 1, end):
-                    domain_sites_list.append("topological_domain_site")
-                    end_old = end
+        try:
+            entry_dict = schema.to_dict(self.directory_xml_file)
+            entry_dict.keys()
+            content = entry_dict['entry'][0]
+
+            end_old = 0
+
+            for element in content['feature']:
+                if element['@type'] == 'topological domain':
+                    begin, end = element['location']['begin']['@position'], element['location']['end']['@position']
+                    for amino_acid_residue_position in range(end_old, begin - 1):
+                        domain_sites_list.append("transmembrane_region_sites")
+                    for amino_acid_residue_position in range(begin - 1, end):
+                        domain_sites_list.append("topological_domain_site")
+                        end_old = end
+
+        except:
+            pass
 
         return domain_sites_list
 
