@@ -1,6 +1,5 @@
 import pandas as pd
 import argparse
-import numpy as np
 import plotly.io as pio
 pio.renderers.default = "browser"
 import plotly.graph_objects as go
@@ -73,20 +72,6 @@ def plot_histogram_for_pandas_column(dataframe, column):
     fig.layout.yaxis.title = 'Number of arabica bones, which we treated with this processing method'
     fig.show()
 
-def clean_outliers(dataframe, heuristic_outlier):
-    '''Function identifies outliers in each column of a pandas dataframe and sets them to median.
-
-    Args:
-        dataframe: pandas dataframe
-        heuristic_outlier: percentage of deviation from median for data points to be recognized as outlier and normalized to median.
-    Returns:
-        dataframe: pandas dataframe with cleaned outliers
-    '''
-
-    return dataframe
-
-    #df.loc['probability', 'r2'] - to replace
-
 def identification_tasks(dataframe):
     '''Function fulfills several identification requirements defined in the tasks.
 
@@ -94,7 +79,7 @@ def identification_tasks(dataframe):
         dataframe: pandas dataframe
     '''
 
-    frequencies_countries = dataframe['Country of Origin'].value_counts().to_dict()
+    frequencies_countries = dataframe['Country.of.Origin'].value_counts().to_dict()
 
     countries_less_10_entries = []
     countries_less_30_entries = []
@@ -125,13 +110,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--directory_table", help="Directory of the imported table.", type=str, required=True)
     parser.add_argument("--selected_columns", help="Columns in table to be kept in pandas dataframe. Please type in as 'Column1,Column2,...'", type=str, required=True)
-    parser.add_argument("--heuristic_outlier", help="Percentage of deviation from median for data points to be recognized as outlier and normalized to median.", type=float, required=True)
     args = parser.parse_args()
 
     directory_table = args.directory_table #directory_table = "./data/arabica_data_cleaned.csv"
     selected_columns = args.selected_columns #selected_columns = ["Country.of.Origin", "Producer", "Processing.Method"]
     selected_columns = selected_columns.split(",")
-    heuristic_outlier = args.heuristic_outlier #heuristic_outlier = 0.05
 
     dataframe = import_table_with_pandas(directory_table)
     dataframe = select_columns_in_pandas_table(dataframe, selected_columns)
@@ -140,5 +123,4 @@ if __name__ == "__main__":
     for column in dataframe.columns:
         plot_histogram_for_pandas_column(dataframe, column)
 
-    dataframe = clean_outliers(dataframe, heuristic_outlier)
     identification_tasks(dataframe)
