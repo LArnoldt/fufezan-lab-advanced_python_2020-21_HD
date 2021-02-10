@@ -68,7 +68,7 @@ def plot_histogram_for_pandas_column(dataframe, column):
 
     fig = go.Figure(data=data)
     fig.update_layout(template="plotly_dark", title="Histogram for the imported table for the column '" + column +"'")
-    fig.layout.xaxis.title = 'Processing Methods'
+    fig.layout.xaxis.title = column
     fig.layout.yaxis.title = 'Number of arabica bones, which we treated with this processing method'
     fig.show()
 
@@ -79,7 +79,7 @@ def identification_tasks(dataframe):
         dataframe: pandas dataframe
     '''
 
-    frequencies_countries = dataframe['Country.of.Origin'].value_counts().to_dict()
+    frequencies_countries = dataframe['Country of Origin'].value_counts().to_dict()
 
     countries_less_10_entries = []
     countries_less_30_entries = []
